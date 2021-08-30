@@ -16,6 +16,7 @@ public class LoginDataSource {
         try {
             UserDto userDto = ServiceLocator.getStrackerService().authenticate(username, password);
             LoggedInUser user = new LoggedInUser(userDto.getUsername(), userDto.getToken());
+
             return new Result.Success<>(user);
         } catch (Exception e) {
             return new Result.Error(new IOException("Error logging in", e));

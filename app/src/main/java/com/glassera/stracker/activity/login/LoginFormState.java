@@ -1,4 +1,4 @@
-package com.glassera.stracker.ui.login;
+package com.glassera.stracker.activity.login;
 
 import androidx.annotation.Nullable;
 

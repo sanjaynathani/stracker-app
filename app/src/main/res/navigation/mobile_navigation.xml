@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/mobile_navigation"
+            app:startDestination="@+id/nav_bank">
+
+    <fragment
+            android:id="@+id/nav_bank"
+            android:name="com.glassera.stracker.activity.dashboard.ui.bank.BankFragment"
+            android:label="@string/menu_bank"
+            tools:layout="@layout/fragment_bank"/>
+
+    <fragment
+            android:id="@+id/nav_investment"
+            android:name="com.glassera.stracker.activity.dashboard.ui.investment.InvestmentFragment"
+            android:label="@string/menu_investment"
+            tools:layout="@layout/fragment_investment"/>
+
+    <fragment
+            android:id="@+id/nav_liability"
+            android:name="com.glassera.stracker.activity.dashboard.ui.liability.LiabilityFragment"
+            android:label="@string/menu_liability"
+            tools:layout="@layout/fragment_liability"/>
+
+    <fragment
+            android:id="@+id/nav_payment"
+            android:name="com.glassera.stracker.activity.dashboard.ui.payment.PaymentFragment"
+            android:label="@string/menu_payment"
+            tools:layout="@layout/fragment_payment"/>
+
+    <fragment
+            android:id="@+id/nav_password"
+            android:name="com.glassera.stracker.activity.dashboard.ui.password.PasswordFragment"
+            android:label="@string/menu_password"
+            tools:layout="@layout/fragment_password"/>
+</navigation>

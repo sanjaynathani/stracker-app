@@ -1,6 +1,8 @@
-package com.glassera.stracker.ui.login;
+package com.glassera.stracker.activity.login;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
@@ -19,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.glassera.stracker.R;
+import com.glassera.stracker.activity.dashboard.DashboardActivity;
 import com.glassera.stracker.databinding.ActivityLoginBinding;
+import com.glassera.stracker.util.Constants;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -72,8 +76,17 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 setResult(Activity.RESULT_OK);
 
+                SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.PREFERENCE, MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString(Constants.USER_NAME, loginViewModel.getLoggedInUser().getDisplayName());
+                editor.putString(Constants.AUTH_TOKEN, loginViewModel.getLoggedInUser().getToken());
+                editor.commit();
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), DashboardActivity.class);
+                startActivity(intent);
+
                 //Complete and destroy login activity once successful
-                finish();
+                //finish();
             }
         });
 

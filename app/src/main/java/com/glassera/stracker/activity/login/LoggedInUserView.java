@@ -1,4 +1,4 @@
-package com.glassera.stracker.ui.login;
+package com.glassera.stracker.activity.login;
 
 /**
  * Class exposing authenticated user details to the UI.

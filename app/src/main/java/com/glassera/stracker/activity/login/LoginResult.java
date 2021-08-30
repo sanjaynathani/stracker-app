@@ -1,6 +1,7 @@
-package com.glassera.stracker.ui.login;
+package com.glassera.stracker.activity.login;
 
 import androidx.annotation.Nullable;
+import com.glassera.stracker.data.model.LoggedInUser;
 
 /**
  * Authentication result : success (user details) or error message.
