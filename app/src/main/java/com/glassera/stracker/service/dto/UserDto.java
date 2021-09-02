@@ -14,4 +14,6 @@ public class UserDto {
     private String token;
     @JsonProperty
     private int duration;
+    @JsonProperty
+    private boolean logout;
 }

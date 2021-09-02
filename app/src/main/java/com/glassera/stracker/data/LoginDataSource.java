@@ -25,8 +25,7 @@ public class LoginDataSource {
 
     public void logout() {
         try {
-            LoggedInUser user = LoginRepository.getInstance(this).getUser();
-            ServiceLocator.getStrackerService().logOut(user.getToken());
+            ServiceLocator.getStrackerService().logOut();
         } catch (Exception e) {
         }
     }

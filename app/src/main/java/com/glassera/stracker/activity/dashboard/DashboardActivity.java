@@ -1,9 +1,15 @@
 package com.glassera.stracker.activity.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
 import android.widget.TextView;
+import com.glassera.stracker.activity.login.LoginActivity;
+import com.glassera.stracker.data.LoginRepository;
+import com.glassera.stracker.service.ServiceLocator;
 import com.glassera.stracker.util.Constants;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -27,7 +33,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         binding = ActivityDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         setSupportActionBar(binding.appBarDashboard.toolbar);
         binding.appBarDashboard.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,10 +54,11 @@ public class DashboardActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         // New code
-        navigationView.setItemIconTintList(null);
+        navigationView.setItemIconTintList(null); // To enable colors of drawer icons
         TextView userNameText = navigationView.getHeaderView(0).findViewById(R.id.dashHeaderUsername);
         userNameText.setText(getApplicationContext().getSharedPreferences(Constants.PREFERENCE, MODE_PRIVATE)
                 .getString(Constants.USER_NAME, ""));
+
     }
 
     @Override
@@ -67,5 +73,19 @@ public class DashboardActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_dashboard);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sign_out:
+                ServiceLocator.getStrackerService().logOut();
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

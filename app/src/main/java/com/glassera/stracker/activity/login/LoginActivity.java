@@ -29,6 +29,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
+    private EditText usernameEditText;
+    private EditText passwordEditText;
+    private Button loginButton;
+    private ProgressBar loadingProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,10 +44,11 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-        final EditText usernameEditText = binding.username;
-        final EditText passwordEditText = binding.password;
-        final Button loginButton = binding.login;
-        final ProgressBar loadingProgressBar = binding.loading;
+        usernameEditText = binding.username;
+        passwordEditText = binding.password;
+        loginButton = binding.login;
+        loadingProgressBar = binding.loading;
+
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -61,19 +66,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
-            @Override
-            public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult == null) {
-                    return;
-                }
-                loadingProgressBar.setVisibility(View.GONE);
-                if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
-                }
-                if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
-                }
+        loginViewModel.getLoginResult().observe(this, loginResult -> {
+            if (loginResult == null) {
+                return;
+            }
+
+            if (loginResult.getError() != null) {
+                showLoginFailed(loginResult.getError());
+            }
+            if (loginResult.getSuccess() != null) {
+                updateUiWithUser(loginResult.getSuccess());
                 setResult(Activity.RESULT_OK);
 
                 SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.PREFERENCE, MODE_PRIVATE);
@@ -84,10 +86,10 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(getApplicationContext(), DashboardActivity.class);
                 startActivity(intent);
-
-                //Complete and destroy login activity once successful
-                //finish();
             }
+            loadingProgressBar.setVisibility(View.GONE);
+            //Complete and destroy login activity once successful
+            //finish();
         });
 
         TextWatcher afterTextChangedListener = new TextWatcher() {
@@ -125,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
+                loginButton.setEnabled(false);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
             }
@@ -139,5 +142,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    }
+
+    private void startLogin() {
+        loadingProgressBar.setVisibility(View.VISIBLE);
+        loginButton.setEnabled(false);
     }
 }
