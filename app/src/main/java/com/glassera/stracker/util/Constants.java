@@ -21,6 +21,10 @@ public class Constants {
     public static final String  LOGIN = "/login";
     public static final String  LOGOUT = "/logout";
     public static final String  BANK = "/bank";
+    public static final String  BANK_CARD = "/bankc";
+    public static final String  Investment = "/investment";
+    public static final String  LIABILITY = "/liability";
+    public static final String  PAYMENT = "/payment";
     // Params
     public static final String  TICKER = "ticker=<VAL>";
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");

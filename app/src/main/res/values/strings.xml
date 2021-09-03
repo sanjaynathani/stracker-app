@@ -19,6 +19,7 @@
     <string name="action_sign_out">Sign out</string>
 
     <string name="menu_bank">Bank Accounts</string>
+    <string name="menu_bank_card">Credit/Debit Cards</string>
     <string name="menu_investment">Investments</string>
     <string name="menu_liability">Liabilities</string>
     <string name="menu_payment">Payments</string>

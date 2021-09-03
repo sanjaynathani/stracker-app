@@ -3,7 +3,11 @@ package com.glassera.stracker.service.impl;
 import android.util.Log;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.glassera.stracker.service.StrackerService;
+import com.glassera.stracker.service.dto.BankCardDto;
 import com.glassera.stracker.service.dto.BankDto;
+import com.glassera.stracker.service.dto.InvestmentDto;
+import com.glassera.stracker.service.dto.LiabilityDto;
+import com.glassera.stracker.service.dto.PaymentDto;
 import com.glassera.stracker.service.dto.UserDto;
 import com.glassera.stracker.util.Constants;
 import com.glassera.stracker.util.HttpClient;
@@ -89,6 +93,66 @@ public class StrackerServiceImpl implements StrackerService {
             return bankDtos;
         } catch (Exception e) {
             Log.e(TAG, "Exception in getBankInfo", e);
+        }
+        return null;
+    }
+
+    @Override
+    public List<BankCardDto> getBankCardInfo() {
+        try {
+            Request request = new Request.Builder()
+                    .url(Constants.BASE_URL + Constants.GDATA + Constants.BANK_CARD)
+                    .get()
+                    .build();
+            Response response = client.newCall(request).execute();
+            return Arrays.asList(objectMapper.readValue(response.body().string(), BankCardDto[].class));
+        } catch (Exception e) {
+            Log.e(TAG, "Exception in getBankCardInfo", e);
+        }
+        return null;
+    }
+
+    @Override
+    public List<InvestmentDto> getInvestmentInfo() {
+        try {
+            Request request = new Request.Builder()
+                    .url(Constants.BASE_URL + Constants.GDATA + Constants.Investment)
+                    .get()
+                    .build();
+            Response response = client.newCall(request).execute();
+            return Arrays.asList(objectMapper.readValue(response.body().string(), InvestmentDto[].class));
+        } catch (Exception e) {
+            Log.e(TAG, "Exception in getInvestmentInfo", e);
+        }
+        return null;
+    }
+
+    @Override
+    public List<LiabilityDto> getLiabilityInfo() {
+        try {
+            Request request = new Request.Builder()
+                    .url(Constants.BASE_URL + Constants.GDATA + Constants.LIABILITY)
+                    .get()
+                    .build();
+            Response response = client.newCall(request).execute();
+            return Arrays.asList(objectMapper.readValue(response.body().string(), LiabilityDto[].class));
+        } catch (Exception e) {
+            Log.e(TAG, "Exception in getLiabilityInfo", e);
+        }
+        return null;
+    }
+
+    @Override
+    public List<PaymentDto> getPaymentInfo() {
+        try {
+            Request request = new Request.Builder()
+                    .url(Constants.BASE_URL + Constants.GDATA + Constants.PAYMENT)
+                    .get()
+                    .build();
+            Response response = client.newCall(request).execute();
+            return Arrays.asList(objectMapper.readValue(response.body().string(), PaymentDto[].class));
+        } catch (Exception e) {
+            Log.e(TAG, "Exception in getPaymentInfo", e);
         }
         return null;
     }

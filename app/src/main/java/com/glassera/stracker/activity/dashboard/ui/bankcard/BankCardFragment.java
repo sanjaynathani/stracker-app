@@ -1,4 +1,4 @@
-package com.glassera.stracker.activity.dashboard.ui.liability;
+package com.glassera.stracker.activity.dashboard.ui.bankcard;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,40 +11,40 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.glassera.stracker.databinding.FragmentLiabilityBinding;
-import com.glassera.stracker.service.dto.LiabilityDto;
+import com.glassera.stracker.databinding.FragmentBankCardBinding;
+import com.glassera.stracker.service.dto.BankCardDto;
 
 import java.util.List;
 
-public class LiabilityFragment extends Fragment {
+public class BankCardFragment extends Fragment {
 
-    private static final String TAG = "LiabilityFragment";
-    private LiabilityViewModel liabilityViewModel;
-    private FragmentLiabilityBinding binding;
+    private static final String TAG = "BankCardFragment";
+    private BankCardViewModel bankCardViewModel;
+    private FragmentBankCardBinding binding;
 
     //private BankAdapter bankAdapter;
-    private LiabilityListAdapter liabilityListAdapter;
+    private BankCardListAdapter bankCardListAdapter;
     private ExpandableListView expandableListView;
-    private List<LiabilityDto> liabilityInfo;
+    private List<BankCardDto> bankCardInfo;
     private RecyclerView.LayoutManager layoutManager;
     private ProgressBar progressBar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        liabilityViewModel =
-                new ViewModelProvider(this).get(LiabilityViewModel.class);
+        bankCardViewModel =
+                new ViewModelProvider(this).get(BankCardViewModel.class);
 
-        binding = FragmentLiabilityBinding.inflate(inflater, container, false);
+        binding = FragmentBankCardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         progressBar = binding.resultProgressBar;
         layoutManager = new LinearLayoutManager(getActivity());
 
         expandableListView = binding.expandableListView;
-        liabilityViewModel.getLiabilityInfo();
-        liabilityViewModel.getLiabilityInfoResult().observe(getViewLifecycleOwner(), investmentInfo -> {
-            this.liabilityInfo = investmentInfo.getInvestmentDtoList();
-            liabilityListAdapter = new LiabilityListAdapter(getContext(), this.liabilityInfo);
-            expandableListView.setAdapter(liabilityListAdapter);
+        bankCardViewModel.getBankCardInfo();
+        bankCardViewModel.getBankCardInfoResult().observe(getViewLifecycleOwner(), bankCardInfo -> {
+            this.bankCardInfo = bankCardInfo.getBankCardDtoList();
+            bankCardListAdapter = new BankCardListAdapter(getContext(), this.bankCardInfo);
+            expandableListView.setAdapter(bankCardListAdapter);
             progressBar.setVisibility(View.GONE);
         });
         return root;

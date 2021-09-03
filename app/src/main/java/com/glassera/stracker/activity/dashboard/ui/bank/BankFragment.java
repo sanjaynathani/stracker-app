@@ -36,7 +36,7 @@ public class BankFragment extends Fragment {
 
         binding = FragmentBankBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        progressBar = binding.bankProgressBar;
+        progressBar = binding.resultProgressBar;
         layoutManager = new LinearLayoutManager(getActivity());
 
         expandableListView = binding.expandableListView;

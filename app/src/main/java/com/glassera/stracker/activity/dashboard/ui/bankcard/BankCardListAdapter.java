@@ -1,34 +1,32 @@
-package com.glassera.stracker.activity.dashboard.ui.bank;
+package com.glassera.stracker.activity.dashboard.ui.bankcard;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 import com.glassera.stracker.R;
-import com.glassera.stracker.service.dto.BankDto;
+import com.glassera.stracker.service.dto.BankCardDto;
 
 import java.util.AbstractMap;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BankListAdapter extends BaseExpandableListAdapter {
+public class BankCardListAdapter extends BaseExpandableListAdapter {
 
-    private static final String TAG = "BankListAdapter";
+    private static final String TAG = "BankCardListAdapter";
     private Context context;
-    private List<BankDto> bankInfo;
+    private List<BankCardDto> bankCardInfo;
 
-    public BankListAdapter(Context context, List<BankDto> bankInfo) {
+    public BankCardListAdapter(Context context, List<BankCardDto> bankCardInfo) {
         this.context = context;
-        this.bankInfo = bankInfo;
+        this.bankCardInfo = bankCardInfo;
     }
 
     @Override
     public int getGroupCount() {
-        return bankInfo.size();
+        return bankCardInfo.size();
     }
 
     @Override
@@ -37,27 +35,27 @@ public class BankListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public BankDto getGroup(int groupPosition) {
-        return this.bankInfo.get(groupPosition);
+    public BankCardDto getGroup(int groupPosition) {
+        return this.bankCardInfo.get(groupPosition);
     }
 
     @Override
     public Map.Entry<String, String> getChild(int groupPosition, int childPosition) {
         switch(childPosition) {
             case 0:
-                return new AbstractMap.SimpleEntry<>("Bank Name", this.bankInfo.get(groupPosition).getName());
+                return new AbstractMap.SimpleEntry<>("Bank Name", this.bankCardInfo.get(groupPosition).getName());
             case 1:
-                return new AbstractMap.SimpleEntry<>("Account Type", this.bankInfo.get(groupPosition).getType());
+                return new AbstractMap.SimpleEntry<>("Card Type", this.bankCardInfo.get(groupPosition).getType());
             case 2:
-                return new AbstractMap.SimpleEntry<>("Account no.", this.bankInfo.get(groupPosition).getAccountNo());
+                return new AbstractMap.SimpleEntry<>("Card No.", this.bankCardInfo.get(groupPosition).getCardNo());
             case 3:
-                return new AbstractMap.SimpleEntry<>("Routing no.", this.bankInfo.get(groupPosition).getRoutingNo());
+                return new AbstractMap.SimpleEntry<>("CVV", this.bankCardInfo.get(groupPosition).getCvv());
             case 4:
-                return new AbstractMap.SimpleEntry<>("Nominee(s)", this.bankInfo.get(groupPosition).getNominee());
+                return new AbstractMap.SimpleEntry<>("Expiry Date", this.bankCardInfo.get(groupPosition).getExpiryDate());
             case 5:
-                return new AbstractMap.SimpleEntry<>("Website", this.bankInfo.get(groupPosition).getContact());
+                return new AbstractMap.SimpleEntry<>("Website", this.bankCardInfo.get(groupPosition).getContact());
             case 6:
-                return new AbstractMap.SimpleEntry<>("Remarks", this.bankInfo.get(groupPosition).getNotes());
+                return new AbstractMap.SimpleEntry<>("Remarks", this.bankCardInfo.get(groupPosition).getNotes());
         }
         return null;
     }
@@ -79,8 +77,8 @@ public class BankListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        BankDto bankDto = getGroup(groupPosition);
-        String bankName = bankDto.getName() + " (" + bankDto.getType() + ")";
+        BankCardDto bankCardDto = getGroup(groupPosition);
+        String bankName = bankCardDto.getName() + " (" + bankCardDto.getType() + ")";
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);

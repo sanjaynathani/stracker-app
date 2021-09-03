@@ -12,6 +12,12 @@
             tools:layout="@layout/fragment_bank"/>
 
     <fragment
+            android:id="@+id/nav_bank_card"
+            android:name="com.glassera.stracker.activity.dashboard.ui.bankcard.BankCardFragment"
+            android:label="@string/menu_bank_card"
+            tools:layout="@layout/fragment_bank_card"/>
+
+    <fragment
             android:id="@+id/nav_investment"
             android:name="com.glassera.stracker.activity.dashboard.ui.investment.InvestmentFragment"
             android:label="@string/menu_investment"

@@ -4,21 +4,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class BankDto {
+public class BankCardDto {
 
     @JsonProperty("Name")
     private String name;
     @JsonProperty("Type")
     private String type;
-    @JsonProperty("Account #")
-    private String accountNo;
-    @JsonProperty("Routing #")
-    private String routingNo;
-    @JsonProperty("Nominee")
-    private String nominee;
+    @JsonProperty("Card #")
+    private String cardNo;
+    @JsonProperty("CVV")
+    private String cvv;
+    @JsonProperty("Expiry Date")
+    private String expiryDate;
     @JsonProperty("Website/Contact")
     private String contact;
     @JsonProperty("Notes")
     private String notes;
-
 }
