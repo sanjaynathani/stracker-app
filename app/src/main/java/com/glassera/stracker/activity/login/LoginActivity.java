@@ -3,6 +3,7 @@ package com.glassera.stracker.activity.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -89,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             loadingProgressBar.setVisibility(View.GONE);
             //Complete and destroy login activity once successful
-            //finish();
+            finish();
         });
 
         TextWatcher afterTextChangedListener = new TextWatcher() {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Stracker</string>
+    <string name="app_name">STracker</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_username">Username</string>
