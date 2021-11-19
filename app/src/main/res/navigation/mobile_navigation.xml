@@ -36,6 +36,12 @@
             tools:layout="@layout/fragment_payment"/>
 
     <fragment
+            android:id="@+id/nav_insurance"
+            android:name="com.glassera.stracker.activity.dashboard.ui.insurance.InsuranceFragment"
+            android:label="@string/menu_insurance"
+            tools:layout="@layout/fragment_insurance"/>
+
+    <fragment
             android:id="@+id/nav_password"
             android:name="com.glassera.stracker.activity.dashboard.ui.password.PasswordFragment"
             android:label="@string/menu_password"

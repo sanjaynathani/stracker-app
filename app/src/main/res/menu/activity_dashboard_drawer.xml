@@ -25,8 +25,12 @@
                 android:icon="@drawable/ic_menu_payment"
                 android:title="@string/menu_payment"/>
         <item
-                android:id="@+id/nav_password"
-                android:icon="@drawable/ic_menu_password"
-                android:title="@string/menu_password"/>
+                android:id="@+id/nav_insurance"
+                android:icon="@drawable/ic_menu_insurance"
+                android:title="@string/menu_insurance"/>
+<!--        <item-->
+<!--                android:id="@+id/nav_password"-->
+<!--                android:icon="@drawable/ic_menu_password"-->
+<!--                android:title="@string/menu_password"/>-->
     </group>
 </menu>

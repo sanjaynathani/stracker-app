@@ -82,7 +82,12 @@ public class LoginActivity extends AppCompatActivity {
 
                 SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.PREFERENCE, MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putString(Constants.USER_NAME, loginViewModel.getLoggedInUser().getDisplayName());
+                editor.putString(Constants.USER_NAME, loginViewModel.getLoggedInUser().getUsername());
+                editor.putString(Constants.USER_FIRST_NAME, loginViewModel.getLoggedInUser().getFirstName());
+                editor.putString(Constants.USER_LAST_NAME, loginViewModel.getLoggedInUser().getLastName());
+                editor.putString(Constants.USER_DISPLAY_NAME, loginViewModel.getLoggedInUser().getDisplayName());
+                editor.putString(Constants.USER_EMAIL, loginViewModel.getLoggedInUser().getEmail());
+                editor.putString(Constants.USER_MOBILE, loginViewModel.getLoggedInUser().getMobileNo());
                 editor.putString(Constants.AUTH_TOKEN, loginViewModel.getLoggedInUser().getToken());
                 editor.commit();
                 Intent intent = new Intent();

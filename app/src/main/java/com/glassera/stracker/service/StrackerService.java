@@ -2,6 +2,7 @@ package com.glassera.stracker.service;
 
 import com.glassera.stracker.service.dto.BankCardDto;
 import com.glassera.stracker.service.dto.BankDto;
+import com.glassera.stracker.service.dto.InsuranceDto;
 import com.glassera.stracker.service.dto.InvestmentDto;
 import com.glassera.stracker.service.dto.LiabilityDto;
 import com.glassera.stracker.service.dto.PaymentDto;
@@ -24,5 +25,7 @@ public interface StrackerService {
     List<LiabilityDto> getLiabilityInfo();
 
     List<PaymentDto> getPaymentInfo();
+
+    List<InsuranceDto> getInsuranceInfo();
 
 }

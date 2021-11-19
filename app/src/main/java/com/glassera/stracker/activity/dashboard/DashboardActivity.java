@@ -34,19 +34,19 @@ public class DashboardActivity extends AppCompatActivity {
         binding = ActivityDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarDashboard.toolbar);
-        binding.appBarDashboard.fab.setOnClickListener(new View.OnClickListener() {
+        /*binding.appBarDashboard.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_bank, R.id.nav_bank_card, R.id.nav_investment, R.id.nav_liability, R.id.nav_payment, R.id.nav_password)
+                R.id.nav_bank, R.id.nav_bank_card, R.id.nav_investment, R.id.nav_liability, R.id.nav_payment, R.id.nav_insurance)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_dashboard);
@@ -57,7 +57,13 @@ public class DashboardActivity extends AppCompatActivity {
         navigationView.setItemIconTintList(null); // To enable colors of drawer icons
         TextView userNameText = navigationView.getHeaderView(0).findViewById(R.id.dashHeaderUsername);
         userNameText.setText(getApplicationContext().getSharedPreferences(Constants.PREFERENCE, MODE_PRIVATE)
-                .getString(Constants.USER_NAME, ""));
+                .getString(Constants.USER_DISPLAY_NAME, ""));
+        TextView userEmailText = navigationView.getHeaderView(0).findViewById(R.id.dashHeaderUserEmail);
+        userEmailText.setText(getApplicationContext().getSharedPreferences(Constants.PREFERENCE, MODE_PRIVATE)
+                .getString(Constants.USER_EMAIL, ""));
+        TextView userMobileText = navigationView.getHeaderView(0).findViewById(R.id.dashHeaderUserMobile);
+        userMobileText.setText(getApplicationContext().getSharedPreferences(Constants.PREFERENCE, MODE_PRIVATE)
+                .getString(Constants.USER_MOBILE, ""));
 
     }
 

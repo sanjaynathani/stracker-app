@@ -1,28 +1,20 @@
 package com.glassera.stracker.activity.login;
 
-import android.util.Log;
+import android.util.Patterns;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import android.util.Patterns;
-
+import com.glassera.stracker.R;
 import com.glassera.stracker.data.LoginRepository;
 import com.glassera.stracker.data.Result;
-import com.glassera.stracker.data.model.LoggedInUser;
-import com.glassera.stracker.R;
 import com.glassera.stracker.service.dto.UserDto;
-import com.glassera.stracker.util.HttpClient;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class LoginViewModel extends ViewModel {
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
     private LoginRepository loginRepository;
-    private LoggedInUser loggedInUser;
+    private UserDto loggedInUser;
 
     LoginViewModel(LoginRepository loginRepository) {
         this.loginRepository = loginRepository;
@@ -39,10 +31,10 @@ public class LoginViewModel extends ViewModel {
     public void login(String username, String password) {
         // can be launched in a separate asynchronous job
         new Thread(() -> {
-            Result<LoggedInUser> result = loginRepository.login(username, password);
+            Result<UserDto> result = loginRepository.login(username, password);
 
             if (result instanceof Result.Success) {
-                loggedInUser = ((Result.Success<LoggedInUser>) result).getData();
+                loggedInUser = ((Result.Success<UserDto>) result).getData();
                 loginResult.postValue(new LoginResult(new LoggedInUserView(loggedInUser.getDisplayName())));
             } else {
                 loginResult.postValue(new LoginResult(R.string.login_failed));
@@ -77,7 +69,7 @@ public class LoginViewModel extends ViewModel {
         return password != null && password.trim().length() > 5;
     }
 
-    public LoggedInUser getLoggedInUser() {
+    public UserDto getLoggedInUser() {
         return loggedInUser;
     }
 }

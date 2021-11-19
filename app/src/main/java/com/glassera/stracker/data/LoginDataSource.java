@@ -11,13 +11,13 @@ import java.io.IOException;
  */
 public class LoginDataSource {
 
-    public Result<LoggedInUser> login(String username, String password) {
+    public Result<UserDto> login(String username, String password) {
 
         try {
             UserDto userDto = ServiceLocator.getStrackerService().authenticate(username, password);
-            LoggedInUser user = new LoggedInUser(userDto.getUsername(), userDto.getToken());
+            //LoggedInUser user = new LoggedInUser(userDto.getUsername(), userDto.getToken());
 
-            return new Result.Success<>(user);
+            return new Result.Success<>(userDto);
         } catch (Exception e) {
             return new Result.Error(new IOException("Error logging in", e));
         }

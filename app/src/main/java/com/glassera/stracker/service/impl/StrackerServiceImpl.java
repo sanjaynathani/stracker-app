@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.glassera.stracker.service.StrackerService;
 import com.glassera.stracker.service.dto.BankCardDto;
 import com.glassera.stracker.service.dto.BankDto;
+import com.glassera.stracker.service.dto.InsuranceDto;
 import com.glassera.stracker.service.dto.InvestmentDto;
 import com.glassera.stracker.service.dto.LiabilityDto;
 import com.glassera.stracker.service.dto.PaymentDto;
@@ -33,6 +34,11 @@ public class StrackerServiceImpl implements StrackerService {
 
     @Override
     public UserDto authenticate(String username, String password) {
+        boolean responseOk = false;
+        Response response = null;
+        int maxRetry = 3;
+        int retryCount = 0;
+        Exception exp = null;
         try {
             final UserDto userDto = new UserDto();
             userDto.setUsername(username);
@@ -43,7 +49,18 @@ public class StrackerServiceImpl implements StrackerService {
                     .url(Constants.BASE_URL + Constants.AUTH + Constants.LOGIN)
                     .post(requestBody)
                     .build();
-            Response response = client.newCall(request).execute();
+            while (!responseOk && retryCount < maxRetry) {
+                try {
+                    response = client.newCall(request).execute();
+                    responseOk = response.isSuccessful();
+                } catch (Exception e) {
+                    exp = e;
+                    retryCount++;
+                }
+            }
+            if (!responseOk) {
+                throw exp;
+            }
             UserDto user = objectMapper.readValue(response.body().string(), UserDto.class);
             user.setUsername(username);
             HttpClient.createNewInstance(user.getToken());
@@ -153,6 +170,21 @@ public class StrackerServiceImpl implements StrackerService {
             return Arrays.asList(objectMapper.readValue(response.body().string(), PaymentDto[].class));
         } catch (Exception e) {
             Log.e(TAG, "Exception in getPaymentInfo", e);
+        }
+        return null;
+    }
+
+    @Override
+    public List<InsuranceDto> getInsuranceInfo() {
+        try {
+            Request request = new Request.Builder()
+                    .url(Constants.BASE_URL + Constants.GDATA + Constants.INSURANCE)
+                    .get()
+                    .build();
+            Response response = client.newCall(request).execute();
+            return Arrays.asList(objectMapper.readValue(response.body().string(), InsuranceDto[].class));
+        } catch (Exception e) {
+            Log.e(TAG, "Exception in getInsuranceInfo", e);
         }
         return null;
     }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">STracker</string>
+    <string name="app_name">Black Box</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_username">Username</string>
@@ -23,5 +23,6 @@
     <string name="menu_investment">Investments</string>
     <string name="menu_liability">Liabilities</string>
     <string name="menu_payment">Payments</string>
+    <string name="menu_insurance">Insurance</string>
     <string name="menu_password">Passwords</string>
 </resources>
